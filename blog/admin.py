@@ -2,8 +2,8 @@
 
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from .models import Post, Comment, Tag
 
-from .models import Post
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'content_size', 'status', 'created_at', 'updated_at']
@@ -24,3 +24,11 @@ class PostAdmin(admin.ModelAdmin):
     make_published.short_description = '지정 포스팅을 Published상태로 변경합니다.'
 
 admin.site.register(Post, PostAdmin) # 참고: 같은 모델 중복 등록은 불가
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name']
