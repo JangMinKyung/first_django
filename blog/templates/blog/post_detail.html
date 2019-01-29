@@ -1,19 +1,17 @@
 {% extends "blog/layout.html" %}
 
-{% block title %}
-{{ post.title }}
-{% endblock %}
-
-{% block content  %}
-
-    <h2>{{ post.title }}</h2>
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+        <h2>{{ post.title }}</h2>
 
     {{ post.content|linebreaks }}
 
     <hr/>
     <h3>Comments</h3>
     <ul>
-        {% for comment in post.comment_set.all %}
+        {% for comment in post.Comment_set.all %}
             <li>
                 {{ comment.message }}
                 <small>by {{ comment.author }}</small>
@@ -21,4 +19,11 @@
             </li>
         {% endfor %}
     </ul>
+
+    <hr/>
+    <a href="{% url "blog:post_list" %}" class="btn btn-primary">글 목록</a>
+        </div>
+    </div>
+    </div>
+
 {% endblock %}

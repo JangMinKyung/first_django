@@ -22,5 +22,5 @@ def post_detail(request, id):
     #    raise Http404
     post = get_object_or_404(Post, id=id)
     return render(request, 'blog/post_detail.html', {
-        'post' : post,
+        'post': post,
     })

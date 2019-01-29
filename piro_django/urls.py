@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, include
+from django.shortcuts import redirect
+
+# def root(request):
+#    return redirect('blog:post_list')
 
 urlpatterns = [
+    # re_path(r'^$', root, name='root'),
+    re_path(r'^$', lambda r: redirect('blog:post_list'), name='root'),
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^accounts/', include('accounts.urls')),
-    re_path(r'^blog/', include('blog.urls')),
-    re_path(r'^dojo/', include('dojo.urls')),
+    re_path(r'^blog/', include(('blog.urls', 'blog'), namespace='blog')),
+    re_path(r'^dojo/', include(('dojo.urls', 'dojo'), namespace='dojo')),
     re_path(r'^shop/', include('shop.urls')),
 ]
