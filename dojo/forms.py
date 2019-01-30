@@ -8,7 +8,10 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         # fields = '__all__'
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'user_agent']
+        widgets = {
+            'user_agent':forms.HiddenInput,
+        }
 
 '''
     def save(self, commit=True):
