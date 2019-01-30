@@ -1,7 +1,7 @@
 # dojo/views.py
 import os
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from dojo.forms import PostForm
 from .models import Post
@@ -30,11 +30,27 @@ def post_new(request):
                                        content=form.cleaned_data['content'])
           '''
             # 방법 4
-            post = form.save()
-
+            post = form.save(commit=False)
+            post.ip = request.META['REMOTE_ADDR']
+            post.save()
             return redirect('/dojo/') # namespace:name
     else:
         form = PostForm()
+    return render(request, 'dojo/post_form.html', {
+        'form': form,
+    })
+
+def post_edit(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.ip = request.META['REMOTE_ADDR']
+            post.save()
+            return redirect('/dojo/')    # namespace:name
+    else:
+        form = PostForm(instance=post)
     return render(request, 'dojo/post_form.html', {
         'form': form,
     })

@@ -20,10 +20,11 @@ AskDjango 페이스북 그룹 &raquo;
     <li>템플릿 경로를 blog/templates/post_list.html 경로가 아닌 blog/templates/blog/post_list.html 경로를 쓰는 지에 대한 이유는 후에 Template Loader에서 설명합니다.</li>
 </ul>
        </div>
+       <a href="{% url "blog:post_new" %}" class="btn btn-primary">New Post</a>
        <p>
            <form action="" method="get">
         <input type="text" name="q" value="{{ q }}"  />
-        <input type="submit" value="검색" class="btn btn-primary" />
+        <input type="submit" value="검색" class="btn btn-primary pull-right" />
     </form>
        </p>
 
