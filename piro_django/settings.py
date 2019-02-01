@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'bootstrap3',
     'blog',
     'dojo',
     'accounts',
@@ -125,3 +126,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INTERNAM_IPS = ['127.0.0.1']
+
+from django.contrib.messages import constants
+
+MESSAGE_LEVEL = constants.DEBUG # 지금부터 debug 레벨의 messages를 남길 수 있음
+MESSAGE_TAGS = {constants.ERROR: 'danger'}
