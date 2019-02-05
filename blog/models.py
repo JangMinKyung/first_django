@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.forms import ValidationError
 from django.db import models
 from django.conf import settings
-from imagekit.models import ImageSpecField
+from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
 
 # Create your models here.
@@ -24,11 +24,11 @@ class Post(models.Model):
     title = models.CharField(max_length=100, verbose_name='제목',
                             help_text='제목을 입력해주세요. 최대 100자 내외.') # 길이 재한이있는 문자열
     content = models.TextField(verbose_name='내용') # 길이 재한이 없는 문자열
-    photo = models.ImageField(blank=True, upload_to='blog/post/%Y/%m/%d')
-    photo_thumbnail = ImageSpecField(source='photo',
-                                    processors=[Thumbnail(300, 300)],
-                                    format='JPEG',
-                                    options={'quality' : 60})
+    photo = ProcessedImageField(blank=True, upload_to='blog/post/%Y/%m/%d',
+                                processors=[Thumbnail(300, 300)],
+                                format='JPEG',
+                                options={'quality': 60})
+
     tags = models.CharField(max_length=100, blank=True)
     lnglat = models.CharField(max_length=50,
                               help_text='경도/위도 포맷으로 입력',
