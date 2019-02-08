@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm
 
 # Create your views here.
 
 def post_list(request):
-    qs = Post.objects.all()
+    qs = Post.objects.all().prefetch_related('tag_set', 'comment_set')
     q = request.GET.get('q','')
     if q:
         qs = qs.filter(title__icontains=q)
@@ -61,4 +61,10 @@ def post_edit(request, id):
         form = PostForm(instance=post)
     return render(request, 'blog/Post_form.html', {
         'form' : form,
+    })
+
+def comment_list(request):
+    comment_list = Comment.objects.all().select_related('post')
+    return render(request, 'blog/comment_list.html', {
+        'comment_list' : comment_list,
     })

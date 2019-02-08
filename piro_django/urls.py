@@ -26,7 +26,7 @@ urlpatterns = [
     # re_path(r'^$', root, name='root'),
     re_path(r'^$', lambda r: redirect('blog:post_list'), name='root'),
     re_path(r'^admin/', admin.site.urls),
-    re_path(r'^accounts/', include('accounts.urls')),
+    re_path(r'^accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     re_path(r'^blog/', include(('blog.urls', 'blog'), namespace='blog')),
     re_path(r'^dojo/', include(('dojo.urls', 'dojo'), namespace='dojo')),
     re_path(r'^shop/', include('shop.urls')),
